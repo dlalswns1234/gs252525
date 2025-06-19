@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GS25 - 편의점</title>
+<script src="https://cdn.tailwindcss.com/3.4.16"></script>
+<script>tailwind.config={theme:{extend:{colors:{primary:'#FF6600',secondary:'#FF6600'},borderRadius:{'none':'0px','sm':'4px',DEFAULT:'8px','md':'12px','lg':'16px','xl':'20px','2xl':'24px','3xl':'32px','full':'9999px','button':'8px'}}}}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+<style>
+:where([class^="ri-"])::before { content: "\f3c2"; }
+body {
+font-family: 'Noto Sans KR', sans-serif;
+}
+.search-input:focus {
+outline: none;
+}
+.search-input::placeholder {
+color: #9CA3AF;
+}
+.promotion-timer {
+background: linear-gradient(to right, #FF6600, #FF9900);
+}
+.product-badge {
+background: #FF6600;
+}
+.product-card:hover {
+transform: translateY(-4px);
+box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+.nav-item.active {
+color: #FF6600;
+font-weight: 700;
+}
+.nav-item:hover {
+color: #3B82F6;
+}
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+-webkit-appearance: none;
+margin: 0;
+}
+</style>
+</head>
+<body class="bg-white min-h-screen">
+<!-- 상단 네비게이션 -->
+<header class="w-full bg-white border-b border-gray-200">
+<div class="container mx-auto px-4">
+<div class="flex items-center justify-between h-16">
+<div class="flex items-center">
+<a href="#" class="text-2xl font-bold text-blue-600 mr-8">GS25</a>
+<nav class="hidden md:flex space-x-8">
+<a href="#" class="nav-item text-gray-600 hover:text-blue-600">홈</a>
+<a href="#" class="nav-item text-gray-600 hover:text-blue-600">이벤트</a>
+<a href="#" class="nav-item text-gray-600 hover:text-blue-600">행사상품</a>
+<a href="#" class="nav-item text-gray-600 hover:text-blue-600">GS25</a>
+<a href="#" class="nav-item text-gray-600 hover:text-blue-600">포장주문</a>
+<a href="#" class="nav-item text-gray-600 hover:text-blue-600">상품권</a>
+</nav>
+</div>
+<div class="flex items-center space-x-4">
+<a href="#" class="nav-item text-gray-600 hover:text-blue-600">로그인</a>
+<a href="#" class="nav-item text-gray-600 hover:text-blue-600">회원가입</a>
+<a href="#" class="nav-item text-gray-600 hover:text-blue-600">마이페이지</a>
+</div>
+</div>
+</div>
+</header>
+<!-- 메인 배너 슬라이더 (PC 기준) -->
+<section class="relative w-full bg-white py-6">
+  <div class="mx-auto px-4" style="max-width: 1200px;">
+    <div class="relative overflow-hidden rounded-lg bg-white shadow-sm">
+      <!-- 슬라이더 트랙 -->
+      <div id="slider" class="flex transition-transform duration-500 ease-in-out">
+        <!-- 첫 번째 슬라이드 -->
+        <div class="w-full flex-shrink-0">
+          <img 
+            src="https://static.readdy.ai/image/3eb7cc0c8f348458c781947656df8c23/59d648479dde61967afc880b6da1daf9.png" 
+            alt="GS25 6월 이벤트 첫번째"
+            class="w-full h-auto object-cover rounded-lg"
+          >
+        </div>
+        <!-- 두 번째 슬라이드 -->
+        <div class="w-full flex-shrink-0">
+          <img 
+            src="image copy 3.png" 
+            alt="2025 6월 행사상품모음"
+            class="w-full h-auto object-cover rounded-lg"
+          >
+        </div>
+      </div>
+
+      <!-- 슬라이드 이동 버튼 -->
+      <button id="prevBtn" class="absolute left-4 top-1/2 -translate-y-1/2 bg-blue-600 text-white px-4 py-3 rounded-full shadow-md hover:bg-blue-700">
+        ‹
+      </button>
+      <button id="nextBtn" class="absolute right-4 top-1/2 -translate-y-1/2 bg-blue-600 text-white px-4 py-3 rounded-full shadow-md hover:bg-blue-700">
+        ›
+      </button>
+    </div>
+  </div>
+</section>
+
+<script>
+  let index = 0;
+  const slider = document.getElementById('slider');
+  const totalSlides = slider.children.length;
+
+  function updateSlider() {
+    slider.style.transform = `translateX(-${index * 100}%)`;
+  }
+
+  document.getElementById('prevBtn').addEventListener('click', () => {
+    index = (index === 0) ? totalSlides - 1 : index - 1;
+    updateSlider();
+  });
+
+  document.getElementById('nextBtn').addEventListener('click', () => {
+    index = (index + 1) % totalSlides;
+    updateSlider();
+  });
+</script>
+
+<!-- 행사상품 추천 영역 -->
+<section class="bg-white py-8">
+  <div class="max-w-[1200px] mx-auto px-4">
+    <div class="flex">
+      <!-- 좌측 카테고리 메뉴 -->
+      <div class="w-1/5 bg-white">
+        <div class="space-y-4">
+          <button class="w-full py-6 px-4 bg-blue-600 text-white font-bold rounded-lg hover:bg-blue-700 transition-colors duration-200">1+1 상품<br><span class="text-sm font-normal">행사상품 사면 하나 더</span></button>
+          <button class="w-full py-6 px-4 bg-blue-600 text-white font-bold rounded-lg hover:bg-blue-700 transition-colors duration-200">2+1 상품</button>
+          <button class="w-full py-6 px-4 bg-blue-600 text-white font-bold rounded-lg hover:bg-blue-700 transition-colors duration-200">덤증정 상품</button>
+          <button class="w-full py-6 px-4 bg-blue-600 text-white font-bold rounded-lg hover:bg-blue-700 transition-colors duration-200">차별화 상품</button>
+        </div>
+      </div>
+
+      <!-- 우측 상품 리스트 -->
+      <div class="w-4/5 pl-6">
+        <h2 class="text-xl font-semibold mb-4">MD 추천</h2>
+        <div class="grid grid-cols-3 gap-4">
+          <!-- 상품 카드 1 -->
+          <div class="border rounded-lg p-4 relative product-card">
+            <div class="absolute top-2 right-2 bg-blue-500 text-white text-xs font-bold px-2 py-1 rounded-full product-badge"></div>
+            <img src="./image copy 4.png" alt="상품1" class="w-full h-auto mb-3 rounded">
+            <p class="text-sm text-gray-700">미미네 흑임자떡볶이</p>
+            <p class="text-base font-semibold">2,900원</p>
+          </div>
+
+          <!-- 상품 카드 2 -->
+          <div class="border rounded-lg p-4 relative product-card">
+            <div class="absolute top-2 right-2 bg-blue-500 text-white text-xs font-bold px-2 py-1 rounded-full product-badge"></div>
+            <img src="./image copy 5.png" alt="상품2" class="w-full h-auto mb-3 rounded">
+            <p class="text-sm text-gray-700">농심 신라면튬바 (대컵)</p>
+            <p class="text-base font-semibold">1,800원</p>
+          </div>
+
+          <!-- 상품 카드 3 -->
+          <div class="border rounded-lg p-4 relative product-card">
+            <div class="absolute top-2 right-2 bg-blue-500 text-white text-xs font-bold px-2 py-1 rounded-full product-badge"></div>
+            <img src="image copy 6.png" alt="상품3" class="w-full h-auto mb-3 rounded">
+            <p class="text-sm text-gray-700">락토핏 마시는 유산균 저당 130ML</p>
+            <p class="text-base font-semibold">2,200원</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
